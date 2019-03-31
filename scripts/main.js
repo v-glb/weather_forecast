@@ -1,4 +1,5 @@
 var city = prompt("Please enter your city: ")
+
 var request = new XMLHttpRequest();
 request.open('GET', `https://api.openweathermap.org/data/2.5/forecast?q=${city}
              &units=metric&appid=${config.apiKey}`, true)
@@ -11,7 +12,13 @@ request.onload = function () {
             card.setAttribute('class', 'card')
 
             const h1 = document.createElement('h1')
-            h1.textContent = weather.dt_txt
+            // Print date more nicely
+            var d = new Date(weather.dt_txt)
+            h1.innerHTML = d.toDateString() + '<br />' +
+                d.toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
 
             const img = document.createElement('img')
             img.setAttribute('src', 'http://openweathermap.org/img/w/' +
@@ -20,7 +27,7 @@ request.onload = function () {
             const p = document.createElement('p')
             p.textContent =
                 // Capitalize first letter of weather description
-                // appends the rest to get complete description 
+                // Append the rest to get complete description 
                 `${weather.weather[0].description}`.charAt(0).toUpperCase() +
                 `${weather.weather[0].description} `.slice(1) +
                 `with min. ${weather.main.temp_min}°C and ` +
