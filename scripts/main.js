@@ -53,8 +53,12 @@ const app = document.getElementById('root')
 const logo = document.createElement('img')
 logo.src = 'img/logo.png'
 
+const report = document.createElement('h2')
+report.textContent = `Your weather report for ${city}: `
+
 const container = document.createElement('div')
 container.setAttribute('class', 'container')
 
 app.appendChild(logo)
+app.appendChild(report)
 app.appendChild(container)
